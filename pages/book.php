@@ -5,8 +5,11 @@ if (isset($deleteCommand) && $deleteCommand == 'del') {
     $nama_cover = fetchOneBook($bookIsbn); 
     $result = deleteBookFromDb($bookIsbn);
     if ($result) {
-        unlink("uploads/" . $nama_cover['cover']);
+        if ($nama_cover['cover'] != "default.jpg"){
+            unlink("uploads/" . $nama_cover['cover']);
+        }
         echo '<div class="d-flex justify-content-center">Data succesfully removed</div>';
+        header('location:index.php?menu=book');
     } else {
         echo '<div class="d-flex justify-content-center">Failed to remove data</div>';
     }

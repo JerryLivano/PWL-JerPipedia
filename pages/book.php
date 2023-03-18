@@ -2,8 +2,10 @@
 $deleteCommand = filter_input(INPUT_GET, 'cmd');
 if (isset($deleteCommand) && $deleteCommand == 'del') {
     $bookIsbn = filter_input(INPUT_GET, 'isbn');
+    $nama_cover = fetchOneBook($bookIsbn); 
     $result = deleteBookFromDb($bookIsbn);
     if ($result) {
+        unlink("uploads/" . $nama_cover['cover']);
         echo '<div class="d-flex justify-content-center">Data succesfully removed</div>';
     } else {
         echo '<div class="d-flex justify-content-center">Failed to remove data</div>';

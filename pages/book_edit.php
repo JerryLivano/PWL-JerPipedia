@@ -17,7 +17,7 @@ if (isset($updatePressed)) {
     if ($_FILES['txtFile']["error"] != 4) {
         $targetDirectory = 'uploads/';
         $fileExtension = pathinfo($_FILES['txtFile']['name'], PATHINFO_EXTENSION);
-        $cover = $isbn . '.' . $fileExtension;
+        $cover = $book['isbn'] . '.' . $fileExtension;
         $fileUploadPath = $targetDirectory . $cover;
     }
     if (trim($title) == ' ') {
@@ -35,11 +35,11 @@ if (isset($updatePressed)) {
     } else if (trim($id) == ' ') {
         echo '<div class="d-flex justify-content-center">Please fill updated genre name</div>';
     } else {
-        if ($_FILES['txtFIle']['size'] != 4) {
+        if ($_FILES['txtFile']['error'] != 4) {
             if ($_FILES['txtFile']['size'] > 1024 * 2048) {
                 echo '<div>Uploaded file exceed 2MB</div>';
             } else {
-                $result_cover = uploadCover($isbn, $newFileName);
+                $result_cover = uploadCover($book['isbn'], $cover);
                 $results = updateBookToDb($book['isbn'], $title, $author, $pub, $pubyear, $desc, $id);
             }
         } else {

@@ -12,23 +12,38 @@ if (isset($deleteCommand) && $deleteCommand == 'del') {
 
 $submitPressed = filter_input(INPUT_POST, 'btnSave');
 if (isset($submitPressed)) {
-  $isbn = filter_input(INPUT_POST, 'isbn');
-  $title = filter_input(INPUT_POST, 'judul');
-  $author = filter_input(INPUT_POST, 'author');
-  $pub = filter_input(INPUT_POST, 'publisher');
-  $pubyear = filter_input(INPUT_POST, 'publish_year');
-  $desc = filter_input(INPUT_POST, 'desc');
-  $id = filter_input(INPUT_POST, 'genre_id');
-  if ((trim($isbn) == '') || (trim($title) == '') || (trim($author) == '') || (trim($pub) == '') || (trim($pubyear) == '') || (trim($desc) == '') || (trim($id) == '')){
-    echo '<div class="d-flex justify-content-center>Please provide with a valid name</div>';
-  } else {
-    $results = addNewBook($isbn, $title, $author, $pub, $pubyear, $desc, $id);
-    if ($results) {
-        echo '<div class="d-flex justify-content-center">Data Succesfully Loaded</div>';
+    $isbn = filter_input(INPUT_POST, 'isbn');
+    $title = filter_input(INPUT_POST, 'judul');
+    $author = filter_input(INPUT_POST, 'author');
+    $pub = filter_input(INPUT_POST, 'publisher');
+    $pubyear = filter_input(INPUT_POST, 'publish_year');
+    $desc = filter_input(INPUT_POST, 'desc');
+    $id = filter_input(INPUT_POST, 'genre_id');
+    if ($_FILES["txtFiles"]["error"] != 4){
+        if ($_FILES["txtFiles"]['size'] > 1024 * 2048) {
+            echo '<div>Uploaded file exceed 2MB</div>';
+        } else {
+            $targetDirectory = 'uploads/';
+            $fileExtension = pathinfo($_FILES["txtFiles"]['name'], PATHINFO_EXTENSION);
+            $newFileName = $isbn . '.' . $fileExtension;
+            $fileUploadPath = $targetDirectory . $newFileName;
+        }
     } else {
-        echo '<div class="d-flex justify-content-center">Failed to add data</div>';
+        $newFileName = "default.jpg";
     }
-  }
+    if ((trim($isbn) == '') || (trim($title) == '') || (trim($author) == '') || (trim($pub) == '') || (trim($pubyear) == '') || (trim($desc) == '') || (trim($id) == '')){
+        echo '<div class="d-flex justify-content-center>Please provide with a valid name</div>';
+    } else {
+        $results = addNewBook($isbn, $title, $author, $pub, $pubyear, $desc, $id, $newFileName);
+        if ($results) {
+            if ($_FILES["txtFiles"]["error"] != 4) {
+                move_uploaded_file($_FILES["txtFiles"]['tmp_name'], $fileUploadPath); #Parameter : nama file temporary, tempat diuploadnya 
+            }
+            echo '<div class="d-flex justify-content-center">Data Succesfully Loaded</div>';
+        } else {
+            echo '<div class="d-flex justify-content-center">Failed to add data</div>';
+        }
+    } 
 }
 
 ?>
@@ -39,7 +54,7 @@ if (isset($submitPressed)) {
             <div class="d-flex justify-content-center">
                 <h3>Tambah Buku</h3>
             </div>
-            <form method="post" action="">
+            <form method="post" action="" enctype="multipart/form-data">
                 <div class="form-group mb-3">
                     <label for="isbn">ISBN</label>
                     <input type="text" class="form-control" name="isbn" id="isbn" placeholder="ISBN" required autofocus>
@@ -75,6 +90,10 @@ if (isset($submitPressed)) {
                             }
                         ?>
                     </select>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="">Cover</label>
+                    <input type="file" class="form-control my-3" name="txtFiles" accept="image/*">
                 </div>
                 <div class="form-group mb-3">
                     <input class="btn btn-dark" type="submit" value="Save Data" name="btnSave">

@@ -25,8 +25,8 @@
     if ($_SESSION['registered_user']) {
     ?>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="padding-left: 30px;">
-        <img src="asset/logo.png" width="50" alt="">
-        <a class="navbar-brand ms-2">JerPipedia</a>
+        <img src="asset/jerpip.png" width="50" alt="">
+        <a class="navbar-brand ms-2">Jer<span style="color: #F9004D;">Pipedia</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

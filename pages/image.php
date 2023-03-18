@@ -56,19 +56,17 @@ if (isset($uploadPressed)) {
 </head>
 <body>
     <div class="container pt-3">
-        <div class="row">
-            <div class="col-sm-6">
-                <form method="post" enctype="multipart/form-data">
-                    <fieldset>
-                        <legend>Upload Image</legend>
-                        <input type="number" class="form-control my-3" name="txtFileName" value="<?php echo $bookIsbn['isbn']; ?>" hidden>
-                        <input type="file" class="form-control my-3" name="txtFile" accept="image/*">
-                        <div>
-                            <input type="submit" class="btn btn-dark mt-3" name="btnUpload" value="Upload File">
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
+        <div class="d-flex justify-content-center">
+            <form method="post" enctype="multipart/form-data">
+                <fieldset>
+                    <legend class="mb-4" style="text-align: center; font-weight: bold;">Upload Image Here</legend>
+                    <input type="number" class="form-control my-3" name="txtFileName" value="<?php echo $bookIsbn['isbn']; ?>" hidden>
+                    <input type="file" class="form-control my-3" name="txtFile" accept="image/*">
+                    <div>
+                        <input type="submit" class="btn btn-dark mt-3" style="width: 100%;" name="btnUpload" value="Upload File">
+                    </div>
+                </fieldset>
+            </form>
         </div>
     </div>
     <main>

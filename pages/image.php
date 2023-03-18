@@ -14,7 +14,11 @@ if (isset($uploadPressed)) {
     if ($_FILES['txtFile']['size'] > 1024 * 2048) {
         echo '<div>Uploaded file exceed 2MB</div>';
     } else {
-        $result = uploadCover($fileName, $newFileName);
+        if ($_FILES['txtFile']['error'] != 4){
+            $result = uploadCover($fileName, $newFileName);
+        } else {
+            $result = uploadCover($fileName, "default.jpg");
+        }
         if ($result == 1) {
             unlink($fileUploadPath); 
             move_uploaded_file($_FILES['txtFile']['tmp_name'], $fileUploadPath); #Parameter : nama file temporary, tempat diuploadnya 

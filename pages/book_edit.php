@@ -13,8 +13,13 @@ if (isset($updatePressed)) {
     $pub = filter_input(INPUT_POST, 'publisher');
     $pubyear = filter_input(INPUT_POST, 'publish_year');
     $desc = filter_input(INPUT_POST, 'desc');
-    $cover = filter_input(INPUT_POST, 'cover');
     $id = filter_input(INPUT_POST, 'genre_id');
+    if ($_FILES['txtFile']["error"] != 4) {
+        $targetDirectory = 'uploads/';
+        $fileExtension = pathinfo($_FILES['txtFile']['name'], PATHINFO_EXTENSION);
+        $cover = $isbn . '.' . $fileExtension;
+        $fileUploadPath = $targetDirectory . $cover;
+    }
     if (trim($title) == ' ') {
         echo '<div class="d-flex justify-content-center">Please fill updated title name</div>';
     } else if (trim($author) == ' ') {
@@ -30,8 +35,21 @@ if (isset($updatePressed)) {
     } else if (trim($id) == ' ') {
         echo '<div class="d-flex justify-content-center">Please fill updated genre name</div>';
     } else {
-        $results = updateBookToDb($book['isbn'], $title, $author, $pub, $pubyear, $desc, $cover, $id);
+        if ($_FILES['txtFIle']['size'] != 4) {
+            if ($_FILES['txtFile']['size'] > 1024 * 2048) {
+                echo '<div>Uploaded file exceed 2MB</div>';
+            } else {
+                $result_cover = uploadCover($isbn, $newFileName);
+                $results = updateBookToDb($book['isbn'], $title, $author, $pub, $pubyear, $desc, $id);
+            }
+        } else {
+            $results = updateBookToDb($book['isbn'], $title, $author, $pub, $pubyear, $desc, $id);
+        }
         if ($results) {
+            if ($result_cover == 1) {
+                unlink($fileUploadPath); 
+                move_uploaded_file($_FILES['txtFile']['tmp_name'], $fileUploadPath); #Parameter : nama file temporary, tempat diuploadnya 
+            }
             header('location:index.php?menu=book');
         } else {
             echo '<div class="d-flex justify-content-center">Failed to update data</div>';
@@ -41,7 +59,7 @@ if (isset($updatePressed)) {
 ?>
 
 <div class="container ps-5 pe-5">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <div class="form-row d-flex justify-content-center mb-3">
             <div class="form-group col-md-6 pe-2">
                 <label for="isbn">ISBN</label>
@@ -73,8 +91,9 @@ if (isset($updatePressed)) {
             </textarea>
         </div>
         <div class="form-group mb-3">
-            <label for="cover">Cover</label>
-            <input type="text" class="form-control" name="cover" id="cover" value="<?php echo $book['cover']; ?>">
+            <label for="cover">Cover</label><br>
+            <img src="uploads/<?php echo $book['cover']; ?>" alt=" " width="100px">
+            <input type="file" class="form-control my-3" name="txtFile" accept="image/*">
         </div>
         <div class="form-group mb-3">
             <label for="genre_id">Genre</label>

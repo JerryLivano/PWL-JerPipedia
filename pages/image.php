@@ -8,17 +8,19 @@ $uploadPressed = filter_input(INPUT_POST, 'btnUpload');
 if (isset($uploadPressed)) {
     $fileName = filter_input(INPUT_POST, 'txtFileName');
     $targetDirectory = 'uploads/';
-    $fileExtension = pathinfo($_FILES['txtFile']['name'], PATHINFO_EXTENSION);
-    $newFileName = $fileName . '.' . $fileExtension;
-    $fileUploadPath = $targetDirectory . $newFileName;
+    if ($_FILES['txtFile']['error'] != 4){
+        $fileExtension = pathinfo($_FILES['txtFile']['name'], PATHINFO_EXTENSION);
+        $newFileName = $fileName . '.' . $fileExtension;
+        $fileUploadPath = $targetDirectory . $newFileName;
+    } else {
+        $newFileName = "default.jpg";
+        unlink($targetDirectory."/".$bookIsbn['cover']);
+        header('location:index.php?menu=book');
+    }
     if ($_FILES['txtFile']['size'] > 1024 * 2048) {
         echo '<div>Uploaded file exceed 2MB</div>';
     } else {
-        if ($_FILES['txtFile']['error'] != 4){
-            $result = uploadCover($fileName, $newFileName);
-        } else {
-            $result = uploadCover($fileName, "default.jpg");
-        }
+        $result = uploadCover($fileName, $newFileName);
         if ($result == 1) {
             unlink($fileUploadPath); 
             move_uploaded_file($_FILES['txtFile']['tmp_name'], $fileUploadPath); #Parameter : nama file temporary, tempat diuploadnya 

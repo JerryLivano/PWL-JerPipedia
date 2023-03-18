@@ -61,20 +61,19 @@ function fetchOneGenreName($isbn)
     return $results;
 }
 
-function updateBookToDb($newIsbn, $newTitle, $newAuthor, $newPub, $newPubyear, $newDesc, $newCover, $genreId) 
+function updateBookToDb($newIsbn, $newTitle, $newAuthor, $newPub, $newPubyear, $newDesc, $genreId) 
 {
     $result = 0;
     $link = createMySQLConnection();
-    $query = 'UPDATE book SET title = ?, author = ?, publisher = ?, publish_year = ?, short_description = ?, cover = ?, genre_id = ? WHERE isbn = ?';
+    $query = 'UPDATE book SET title = ?, author = ?, publisher = ?, publish_year = ?, short_description = ?, genre_id = ? WHERE isbn = ?';
     $stmt = $link -> prepare($query);
     $stmt -> bindParam(1, $newTitle, PDO::PARAM_STR);
     $stmt -> bindParam(2, $newAuthor, PDO::PARAM_STR);
     $stmt -> bindParam(3, $newPub, PDO::PARAM_STR);
     $stmt -> bindParam(4, $newPubyear, PDO::PARAM_STR);
     $stmt -> bindParam(5, $newDesc, PDO::PARAM_STR);
-    $stmt -> bindParam(6, $newCover, PDO::PARAM_STR);
-    $stmt -> bindParam(7, $genreId, PDO::PARAM_STR);
-    $stmt -> bindParam(8, $newIsbn, PDO::PARAM_STR);
+    $stmt -> bindParam(6, $genreId, PDO::PARAM_STR);
+    $stmt -> bindParam(7, $newIsbn, PDO::PARAM_STR);
     if ($stmt -> execute()) {
       $link -> commit();
       $result = 1;

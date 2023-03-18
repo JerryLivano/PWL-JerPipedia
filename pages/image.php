@@ -16,7 +16,7 @@ if (isset($uploadPressed)) {
     } else {
         $result = uploadCover($fileName, $newFileName);
         if ($result == 1) {
-            unlink('uploads/' . $fileName); 
+            unlink($fileUploadPath); 
             move_uploaded_file($_FILES['txtFile']['tmp_name'], $fileUploadPath); #Parameter : nama file temporary, tempat diuploadnya 
             header('location:index.php?menu=book');
         } else {

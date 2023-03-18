@@ -1,4 +1,5 @@
 <?php
+    ob_start();
     session_start();
     if (!isset($_SESSION['registered_user'])) {
         $_SESSION['registered_user'] = false;

@@ -91,8 +91,9 @@ if (isset($updatePressed)) {
             </textarea>
         </div>
         <div class="form-group mb-3">
-            <label for="cover">Cover</label><br>
-            <img src="uploads/<?php echo $book['cover']; ?>" alt=" " width="100px">
+            <label for="cover"><h3>Current Cover</h3></label> <br>
+            <img class="mb-4" src="uploads/<?php echo $book['cover']; ?>" alt=" " width="100px">
+            <div>New Cover</div>
             <input type="file" class="form-control my-3" name="txtFile" accept="image/*">
         </div>
         <div class="form-group mb-3">

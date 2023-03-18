@@ -11,12 +11,12 @@ function fetchBookFromDb(): bool|array
     return $results;
 }
 
-function addNewBook($newIsbn, $newTitle, $newAuthor, $newPub, $newPubyear, $newDesc, $genreId)
+function addNewBook($newIsbn, $newTitle, $newAuthor, $newPub, $newPubyear, $newDesc, $genreId, $newCover)
 {
     $results = 0;
     $link = createMySQLConnection();
     $link -> beginTransaction();
-    $query = 'INSERT INTO book(isbn, title, author, publisher, publish_year, short_description, genre_id) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    $query = 'INSERT INTO book(isbn, title, author, publisher, publish_year, short_description, genre_id, cover) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
     $stmt = $link -> prepare($query);
     $stmt -> bindParam(1, $newIsbn);
     $stmt -> bindParam(2, $newTitle);
@@ -25,6 +25,7 @@ function addNewBook($newIsbn, $newTitle, $newAuthor, $newPub, $newPubyear, $newD
     $stmt -> bindParam(5, $newPubyear);
     $stmt -> bindParam(6, $newDesc);
     $stmt -> bindParam(7, $genreId);
+    $stmt -> bindParam(8, $newCover);
     if ($stmt -> execute()) {
       $link -> commit();
       $results = 1;

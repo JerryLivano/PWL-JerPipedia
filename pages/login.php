@@ -1,103 +1,317 @@
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
 
-/* Reseting */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-
-body {
-    background: #ecf0f3;
-}
-
-
-.wrapper {
-    max-width: 350px;
-    min-height: 500px;
-    margin: 80px auto;
-    padding: 40px 30px 30px 30px;
-    background-color: #ecf0f3;
-    border-radius: 15px;
-    box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
-}
-
-.logo {
-    width: 80px;
-    margin: auto;
-}
-
-.logo img {
-    width: 100%;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 50%;
-    box-shadow: 0px 0px 3px #5f5f5f,
-        0px 0px 0px 5px #ecf0f3,
-        8px 8px 15px #a7aaa7,
-        -8px -8px 15px #fff;
-}
-
-.wrapper .name {
-    font-weight: 600;
-    font-size: 1.4rem;
-    letter-spacing: 1.3px;
-    padding-left: 10px;
-    color: #555;
-}
-
-.wrapper .form-field input {
-    width: 100%;
-    display: block;
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 1.2rem;
-    color: #666;
-    padding: 10px 15px 10px 10px;
-    /* border: 1px solid red; */
-}
-
-.wrapper .form-field {
-    padding-left: 10px;
-    margin-bottom: 20px;
-    border-radius: 20px;
-    box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
-}
-
-.wrapper .form-field .fas {
-    color: #555;
-}
-
-.wrapper .btn {
-    box-shadow: none;
-    width: 100%;
-    height: 40px;
-    color: #fff;
-    border-radius: 25px;
-    box-shadow: 3px 3px 3px #b1b1b1,
-        -3px -3px 3px #fff;
-    letter-spacing: 1.3px;
-}
-
-.wrapper a {
-    text-decoration: none;
-    font-size: 0.8rem;
-    color: #03A9F4;
-}
-
-.wrapper a:hover {
-    color: #039BE5;
-}
-
-@media(max-width: 380px) {
-    .wrapper {
-        margin: 30px 20px;
-        padding: 40px 15px 15px 15px;
+    body{
+        font-family: 'Poppins', sans-serif;
+        font-weight: 300;
+        font-size: 15px;
+        line-height: 1.7;
+        color: #c4c3ca;
+        background-color: #1f2029;
+        overflow-x: hidden;
     }
-}
+
+    a {
+        cursor: pointer;
+        transition: all 200ms linear;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    .link {
+        color: #c4c3ca;
+    }
+
+    .link:hover {
+        color: #ffeba7;
+    }
+
+    p {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    h4 {
+        font-weight: 600;
+    }
+
+    h6 span{
+        padding: 0 20px;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+
+    .section{
+        position: relative;
+        width: 100%;
+        display: block;
+    }
+    
+    .full-height{
+        min-height: 100vh;
+    }
+    
+    [type="checkbox"]:checked,
+    [type="checkbox"]:not(:checked){
+        position: absolute;
+        left: -9999px;
+    }
+
+    .checkbox:checked + label,
+    .checkbox:not(:checked) + label{
+        position: relative;
+        display: block;
+        text-align: center;
+        width: 60px;
+        height: 16px;
+        border-radius: 8px;
+        padding: 0;
+        margin: 10px auto;
+        cursor: pointer;
+        background-color: #ffeba7;
+    }
+
+    .checkbox:checked + label:before,
+    .checkbox:not(:checked) + label:before{
+        position: absolute;
+        display: block;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        color: #102770;
+        background-color: #102770;
+        font-family: 'unicons';
+        content: '\eb4f';
+        z-index: 20;
+        top: -10px;
+        left: -10px;
+        line-height: 36px;
+        text-align: center;
+        font-size: 24px;
+        transition: all 0.5s ease;
+    }
+
+    .checkbox:checked + label:before {
+        transform: translateX(44px) rotate(-270deg);
+    }
+
+    .card-3d-wrap {
+        position: relative;
+        width: 440px;
+        max-width: 100%;
+        height: 400px;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        perspective: 800px;
+        margin-top: 60px;
+    }
+
+    .card-3d-wrapper {
+        width: 100%;
+        height: 100%;
+        position:absolute;    
+        top: 0;
+        left: 0;  
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        transition: all 600ms ease-out; 
+    }
+
+    .card-front, .card-back {
+        width: 100%;
+        height: 100%;
+        background-color: #2a2b38;
+        background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg');
+        background-position: bottom center;
+        background-repeat: no-repeat;
+        background-size: 300%;
+        position: absolute;
+        border-radius: 6px;
+        left: 0;
+        top: 0;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        -o-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    .card-back {
+        transform: rotateY(180deg);
+    }
+
+    .checkbox:checked ~ form .card-3d-wrap .card-3d-wrapper {
+        transform: rotateY(180deg);
+    }
+
+    .center-wrap{
+        position: absolute;
+        width: 100%;
+        padding: 0 35px;
+        top: 50%;
+        left: 0;
+        transform: translate3d(0, -50%, 35px) perspective(100px);
+        z-index: 20;
+        display: block;
+    }
+
+    .form-group{ 
+        position: relative;
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+
+    .form-style {
+        padding: 13px 20px;
+        padding-left: 55px;
+        height: 48px;
+        width: 100%;
+        font-weight: 500;
+        border-radius: 4px;
+        font-size: 14px;
+        line-height: 22px;
+        letter-spacing: 0.5px;
+        outline: none;
+        color: #c4c3ca;
+        background-color: #1f2029;
+        border: none;
+        -webkit-transition: all 200ms linear;
+        transition: all 200ms linear;
+        box-shadow: 0 4px 8px 0 rgba(21,21,21,.2);
+    }
+
+    .form-style:focus,
+    .form-style:active {
+        border: none;
+        outline: none;
+        box-shadow: 0 4px 8px 0 rgba(21,21,21,.2);
+    }
+
+    .fa {
+        position: absolute;
+        top: 0;
+        left: 18px;
+        height: 48px;
+        font-size: 24px;
+        line-height: 48px;
+        text-align: left;
+        color: #ffeba7;
+        -webkit-transition: all 200ms linear;
+        transition: all 200ms linear;
+    }
+
+    .form-group input:-ms-input-placeholder  {
+        color: #c4c3ca;
+        opacity: 0.7;
+        -webkit-transition: all 200ms linear;
+        transition: all 200ms linear;
+    }
+
+    .form-group input::-moz-placeholder  {
+        color: #c4c3ca;
+        opacity: 0.7;
+        -webkit-transition: all 200ms linear;
+        transition: all 200ms linear;
+    }
+
+    .form-group input:-moz-placeholder  {
+        color: #c4c3ca;
+        opacity: 0.7;
+        -webkit-transition: all 200ms linear;
+        transition: all 200ms linear;
+    }
+
+    .form-group input::-webkit-input-placeholder  {
+        color: #c4c3ca;
+        opacity: 0.7;
+        -webkit-transition: all 200ms linear;
+        transition: all 200ms linear;
+    }
+
+    .form-group input:focus:-ms-input-placeholder  {
+        opacity: 0;
+        -webkit-transition: all 200ms linear;
+        transition: all 200ms linear;
+    }
+
+    .form-group input:focus::-moz-placeholder  {
+        opacity: 0;
+        -webkit-transition: all 200ms linear;
+        transition: all 200ms linear;
+    }
+
+    .form-group input:focus:-moz-placeholder  {
+        opacity: 0;
+        -webkit-transition: all 200ms linear;
+        transition: all 200ms linear;
+    }
+
+    .form-group input:focus::-webkit-input-placeholder  {
+        opacity: 0;
+        -webkit-transition: all 200ms linear;
+        transition: all 200ms linear;
+    }
+
+    .btn{  
+        border-radius: 4px;
+        height: 44px;
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        -webkit-transition : all 200ms linear;
+        transition: all 200ms linear;
+        padding: 0 30px;
+        letter-spacing: 1px;
+        display: -webkit-inline-flex;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -webkit-align-items: center;
+        -moz-align-items: center;
+        -ms-align-items: center;
+        align-items: center;
+        -webkit-justify-content: center;
+        -moz-justify-content: center;
+        -ms-justify-content: center;
+        justify-content: center;
+        -ms-flex-pack: center;
+        text-align: center;
+        border: none;
+        background-color: #ffeba7;
+        color: #102770;
+        box-shadow: 0 8px 24px 0 rgba(255,235,167,.2);
+    }
+
+    .btn:active,
+    .btn:focus{  
+        background-color: #102770;
+        color: #ffeba7;
+        box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
+    }
+
+    .btn:hover{  
+        background-color: #102770;
+        color: #ffeba7;
+        box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
+    }
+
+    .logo {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        display: block;
+        z-index: 100;
+        transition: all 250ms linear;
+    }
+    .logo img {
+        height: 100px;
+        width: auto;
+        display: block;
+    }
 </style>
 <?php
 $loginPressed = filter_input(INPUT_POST, 'btnLogin');
@@ -117,24 +331,81 @@ if (isset($loginPressed)) {
         }
     }
 }
+
+$submitPressed = filter_input(INPUT_POST, 'btnSignUp');
+    if (isset($submitPressed)) {
+        $name = filter_input(INPUT_POST, 'signName');
+        $email = filter_input(INPUT_POST, 'signEmail');
+        $pass = filter_input(INPUT_POST, 'signPassword');
+        if (trim($name) == ' ' || trim($email) == ' ' || trim($pass) == ' '){
+            echo '<div class="d-flex justify-content-center">Please provide with a valid input</div>';
+        } else {
+            $results = addNewUser($name, $email, $pass);
+            if ($results) {
+                echo '<div class="d-flex justify-content-center">Data Succesfully Loaded</div>';
+            } else {
+                echo '<div class="d-flex justify-content-center">Failed to add data</div>';
+            }
+        }
+    }
+
 ?>
-<div class="wrapper">
-    <div class="logo d-flex justify-content-center">
-        <img src="https://www.freepnglogos.com/uploads/twitter-logo-png/twitter-bird-symbols-png-logo-0.png" alt="">
-    </div>
-    <div class="text-center mt-4 name">
-        JeriPedia
-    </div>
-    <form method="post" class="p-3 mt-3">
-        <div class="form-field d-flex align-items-center">
-            <input type="email" name="txtEmail" id="txtEmail" placeholder="Email">
-        </div>
-        <div class="form-field d-flex align-items-center">
-            <input type="password" name="txtPassword" id="txtPassword" placeholder="Password">
-        </div>
-        <input type="submit" class="btn btn-dark mt-3" id="btnLogin" name="btnLogin" value="Login" />
-    </form>
-    <div class="text-center fs-6">
-        <a href="#">Forget password?</a> or <a href="#">Sign up</a>
-    </div>
+<div class="logo">
+	<img src="asset/jerpip.png" alt="">
 </div>
+<div class="section">
+		<div class="container">
+			<div class="row full-height justify-content-center">
+				<div class="col-12 text-center align-self-center py-5">
+					<div class="section pb-5 pt-5 pt-sm-2 text-center">
+						<h6 class="mb-0 pb-3"><span>Log In </span><span>Sign Up</span></h6>
+			          	<input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
+			          	<label for="reg-log"></label>
+                        <form action="" method="post">
+                            <div class="card-3d-wrap mx-auto">
+                                <div class="card-3d-wrapper">]
+                                    <div class="card-front">
+                                        <div class="center-wrap">
+                                            <div class="section text-center">
+                                                <h4 class="mb-4 pb-3">Log In</h4>
+                                                    <div class="form-group">
+                                                        <input type="email" name="txtEmail" class="form-style" placeholder="Email Address" id="txtEmail">
+                                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                                    </div>	
+                                                    <div class="form-group mt-2">
+                                                        <input type="password" name="txtPassword" class="form-style" placeholder="Password" id="txtPassword">
+                                                        <i class="fa fa-key" aria-hidden="true"></i>
+                                                    </div>
+                                                    <input type="submit" class="btn mt-4" name="btnLogin" id="btnLogin" value="Log In">
+                                                    <p class="mb-0 mt-4 text-center"><a href="#0" class="link">Forgot your password?</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-back">
+                                            <div class="center-wrap">
+                                                <div class="section text-center">
+                                                    <h4 class="mb-4 pb-3">Sign Up</h4>
+                                                    <div class="form-group">
+                                                        <input type="text" name="signName" class="form-style" placeholder="Full Name" id="signName">
+                                                        <i class="fa fa-address-card" aria-hidden="true"></i>
+                                                    </div>	
+                                                    <div class="form-group mt-2">
+                                                        <input type="email" name="signEmail" class="form-style" placeholder="Email Address" id="signEmail">
+                                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                                    </div>
+                                                    <div class="form-group mt-2">
+                                                        <input type="password" name="signPassword" class="form-style" placeholder="Password" id="signPassword">
+                                                        <i class="fa fa-key" aria-hidden="true"></i>
+                                                    </div>
+                                                    <input type="submit" class="btn mt-4" name="btnSignUp" id="btnSignUp" value="Sign Up">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+	    </div>
+	</div>
